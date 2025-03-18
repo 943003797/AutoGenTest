@@ -5,6 +5,7 @@ from autogen_agentchat.conditions import TextMentionTermination
 from autogen_agentchat.ui import Console
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_ext.models.openai import OpenAIChatCompletionClient
+from autogen_ext.models.ollama import OllamaChatCompletionClient
 from autogen_agentchat.base import TaskResult
 
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
@@ -23,10 +24,15 @@ model_client=OpenAIChatCompletionClient(
             # api_key="sk-88153123bd974b9c9e8dc02eeaf5ffc4",
             # base_url="https://api.wlai.vip/v1"
         )
+local_gpt = OllamaChatCompletionClient(
+    model="gpt-4o-mini",
+    base_url="http://127.0.0.1:11434",
+    context_window=128000,  # 添加必要参数
+    max_tokens=4096
+)
 agent = AssistantAgent(
     name="weather_agent",
-    model_client=model_client,
-    tools=[get_weather],
+    model_client=local_gpt,
     system_message="你是个乐于助人的助手。使用中文回复用户。",
     reflect_on_tool_use=True,
     model_client_stream=True,  # Enable streaming tokens from the model client.
