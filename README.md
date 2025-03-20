@@ -5,20 +5,28 @@
 
 ## ⚙️ 环境配置
 
-### 创建虚拟环境
+### 项目初始化
+
+#### 创建虚拟环境
 ```bash
 python -m venv venv
 ```
 
-Windows 系统
-激活
-.\venv\Scripts\activate
-
-Linux/macOS 系统
-source venv/bin/activate
-
-退出虚拟环境
-deactivate
-
-安装依赖
-pip install -U "autogen-agentchat" "autogen-ext[openai]" "autogen-ext[mcp]" "mcp-server-fetch" "autogen-ext[http-tool]"
+❀ Windows 系统
+  ✿ 激活
+    ```bash
+    .\venv\Scripts\activate
+    ```bash
+❀ Linux/macOS 系统
+  ✿ 激活
+    ```bash
+    source venv/bin/activate
+    ```bash
+❀ 退出虚拟环境
+    ```bash
+  deactivate
+```bash
+❀ 安装依赖
+```bash
+  pip install -m requirements.txt
+```bash
