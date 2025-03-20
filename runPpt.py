@@ -46,19 +46,19 @@ async def main() -> None:
 
     # fetch_mcp_server = await mcp_server_tools(StdioServerParams(command="python", args=["mcp/mcp_server_fetch.py"]))
 
-    tools_firecrawl = await mcp_server_tools(StdioServerParams(
-      command= "cmd",
-      args= [
-        "/c",
-        "npx",
-        "-y",
-        "@smithery/cli@latest",
-        "run",
-        "@mendableai/mcp-server-firecrawl",
-        "--config",
-        "{\"fireCrawlApiKey\":\"fc-e7b183b16de64e6a85b009920c68cb10\"}"
-      ]
-    ))
+    # tools_firecrawl = await mcp_server_tools(StdioServerParams(
+    #   command= "cmd",
+    #   args= [
+    #     "/c",
+    #     "npx",
+    #     "-y",
+    #     "@smithery/cli@latest",
+    #     "run",
+    #     "@mendableai/mcp-server-firecrawl",
+    #     "--config",
+    #     "{\"fireCrawlApiKey\":\"fc-e7b183b16de64e6a85b009920c68cb10\"}"
+    #   ]
+    # ))
 
     # tools_duckduckgo = await mcp_server_tools(StdioServerParams(
     #     command= "cmd",
@@ -101,7 +101,6 @@ async def main() -> None:
         model_client=gpt_4o,
         system_message="你是个信息搜索整理助手,会使用网络搜索相关信息，整理给用户",
         model_client_stream=True,
-        tools=tools_firecrawl,
         reflect_on_tool_use=True
     )
 
@@ -125,9 +124,9 @@ async def main() -> None:
     text_termination = TextMentionTermination("Pass")
     max_message_termination = MaxMessageTermination(4)
     termination = text_termination | max_message_termination
-    reflection_team = RoundRobinGroupChat(participants=[agent,agent1,agent2], termination_condition=termination, max_turns=None)
+    reflection_team = RoundRobinGroupChat(participants=[agent,agent2], termination_condition=termination, max_turns=None)
     
-    stream = reflection_team.run_stream(task="诗人李煜的经典之作？")
+    stream = reflection_team.run_stream(task="写一个介绍Autogen的PPT，包含介绍，安装，使用，扩展等内容")
     await Console(stream)
 
 asyncio.run(main())
