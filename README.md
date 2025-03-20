@@ -28,5 +28,5 @@ python -m venv venv
 ```bash
 ❀ 安装依赖
 ```bash
-  pip install -m requirements.txt
+  pip install -r requirements.txt
 ```bash
